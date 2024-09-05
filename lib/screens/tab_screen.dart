@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meals/screens/categories_screen.dart';
 import 'package:meals/screens/meals_screen.dart';
 import 'package:meals/model/meal.dart';
+import 'package:meals/widgets/main_drawer.dart';
 
 class TabScreen extends StatefulWidget {
   const TabScreen({super.key});
@@ -18,6 +19,14 @@ class _TabScreenState extends State<TabScreen> {
     setState(() {
       _selectedPageIndex = index;
     });
+  }
+
+  void _setScreen(String identifier){
+    if (identifier == 'filters'){
+
+    } else {
+      Navigator.of(context).pop();
+    }
   }
 
   void _showInfoMessage(String message) {
@@ -43,7 +52,7 @@ class _TabScreenState extends State<TabScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var activeScreenTitle = 'Categories';
+    String activeScreenTitle = 'Categories';
 
     Widget activeScreen =
         CategoriesScreen(onToggleFavorite: _toggleMealFavoriteStatus);
@@ -57,6 +66,7 @@ class _TabScreenState extends State<TabScreen> {
 
     return Scaffold(
       appBar: AppBar(title: Text(activeScreenTitle)),
+      drawer: MainDrawer(onSelectScreen: _setScreen,),
       body: activeScreen,
       bottomNavigationBar: BottomNavigationBar(
           onTap: _changeScreens,
