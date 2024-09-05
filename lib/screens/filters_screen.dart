@@ -10,7 +10,9 @@ enum Filter {
   vegan
 }
 class FiltersScreen extends StatefulWidget {
-  const FiltersScreen({super.key});
+  const FiltersScreen({super.key, required this.currentFilters});
+
+  final Map<Filter, bool> currentFilters;
 
   @override
   State<FiltersScreen> createState() => _FiltersScreenState();
@@ -21,6 +23,16 @@ class _FiltersScreenState extends State<FiltersScreen> {
   bool _lactoseFreeFilterSet = false;
   bool _vegetarianFilterSet = false;
   bool _veganFilterSet = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _glutenFreeFilterSet = widget.currentFilters[Filter.glutenFree]!;
+    _lactoseFreeFilterSet = widget.currentFilters[Filter.lactoseFree]!;
+    _vegetarianFilterSet = widget.currentFilters[Filter.vegetarian]!;
+    _veganFilterSet = widget.currentFilters[Filter.vegan]!;
+    
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +64,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                 value: _glutenFreeFilterSet,
                 onChanged: (isChecked) {
                   setState(() {
-                    _glutenFreeFilterSet = true;
+                    _glutenFreeFilterSet = isChecked;
                   });
                 },
                 title: Text(
@@ -72,7 +84,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                 value: _lactoseFreeFilterSet,
                 onChanged: (isChecked) {
                   setState(() {
-                    _lactoseFreeFilterSet = true;
+                    _lactoseFreeFilterSet = isChecked;
                   });
                 },
                 title: Text(
@@ -92,7 +104,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                 value: _vegetarianFilterSet,
                 onChanged: (isChecked) {
                   setState(() {
-                    _vegetarianFilterSet = true;
+                    _vegetarianFilterSet = isChecked;
                   });
                 },
                 title: Text(
@@ -112,7 +124,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                 value: _veganFilterSet,
                 onChanged: (isChecked) {
                   setState(() {
-                    _veganFilterSet = true;
+                    _veganFilterSet = isChecked;
                   });
                 },
                 title: Text(
