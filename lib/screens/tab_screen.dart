@@ -48,12 +48,6 @@ class _TabScreenState extends ConsumerState<TabScreen> {
     }
   }
 
-  void _showInfoMessage(String message) {
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(message)));
-  }
-
   @override
   Widget build(BuildContext context) {
     String activeScreenTitle = 'Categories';
