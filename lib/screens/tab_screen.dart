@@ -20,24 +20,40 @@ class _TabScreenState extends State<TabScreen> {
     });
   }
 
+  void _showInfoMessage(String message) {
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
+  }
+
   void _toggleMealFavoriteStatus(Meal meal) {
- final isExisting = _favoriteMeals.contains(meal);
- if (isExisting) {
-  _favoriteMeals.remove(meal);
- } else {
-  _favoriteMeals.add(meal);
- }
+    final isExisting = _favoriteMeals.contains(meal);
+    if (isExisting) {
+      setState(() {
+        _favoriteMeals.remove(meal);
+        _showInfoMessage('Meal is no longer a favorite.');
+      });
+    } else {
+      setState(() {
+        _favoriteMeals.add(meal);
+        _showInfoMessage('Meal is added to your favorites.');
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-      var activeScreenTitle = 'Categories';
+    var activeScreenTitle = 'Categories';
 
-    Widget activeScreen = CategoriesScreen(onToggleFavorite: _toggleMealFavoriteStatus);
+    Widget activeScreen =
+        CategoriesScreen(onToggleFavorite: _toggleMealFavoriteStatus);
     if (_selectedPageIndex == 1) {
-      activeScreen = MealsScreen(meals: [], onToggleFavorite: _toggleMealFavoriteStatus,);
+      activeScreen = MealsScreen(
+        meals: _favoriteMeals,
+        onToggleFavorite: _toggleMealFavoriteStatus,
+      );
       activeScreenTitle = 'Favorites';
-    } 
+    }
 
     return Scaffold(
       appBar: AppBar(title: Text(activeScreenTitle)),
