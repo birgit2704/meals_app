@@ -10,6 +10,9 @@ class MealDetailScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final favoriteMeals = ref.watch(favoriteMealsProvider);
+    final isFavorite = favoriteMeals.contains(meal);
+
     return Scaffold(
         appBar: AppBar(
           actions: [
@@ -22,7 +25,7 @@ class MealDetailScreen extends ConsumerWidget {
                   ScaffoldMessenger.of(context)
                       .showSnackBar(SnackBar(content: Text(wasAdded ? 'Added to favorites' : 'Deleted from favorites')));
                 },
-                icon: const Icon(Icons.star))
+                icon: isFavorite ? const Icon(Icons.star) : const Icon(Icons.star_border))
           ],
           title: Text(meal.title),
         ),
