@@ -24,7 +24,7 @@ class _CategoriesScreenState extends State<CategoriesScreen>
 
     _animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 600),
       lowerBound: 0,
       upperBound: 1,
     );
